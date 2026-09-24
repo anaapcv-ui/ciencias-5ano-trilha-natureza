@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trilha da Natureza — Ciências 5º Ano 💧🍎</title>
+<style>
+  :root{
+    --azul:#1f7ae0;--azulfundo:#e8f6ff;--dourado:#ef8a2e;--nilo:#2ba36b;
+    --coral:#ef5b5b;--roxo:#159957;--amarelo:#f7c948;--escuro:#213b32;
+    --verde-ok:#2eaf6b;--cinza:#8894a6;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Segoe UI',Verdana,Arial,sans-serif;background:linear-gradient(160deg,#e8f6ff,#eafaf0 55%,#fff7e0);min-height:100vh;color:var(--escuro);line-height:1.55;}
+  .hero{background:linear-gradient(120deg,var(--azul),var(--roxo));color:#fff;text-align:center;padding:30px 16px 26px;border-bottom:8px solid var(--amarelo);}
+  .hero .icone{font-size:2.8em;}
+  .hero h1{font-size:1.6em;margin:6px 0;}
+  .hero p{opacity:.95;font-size:1.02em;}
+  .dataProva{display:inline-block;background:#ffffff26;border:2px solid #ffffff66;border-radius:30px;padding:6px 16px;margin-top:10px;font-weight:bold;}
+
+  /* abas */
+  .abas{position:sticky;top:0;z-index:20;background:#ffffffee;backdrop-filter:blur(6px);display:flex;flex-wrap:wrap;gap:4px;justify-content:center;padding:8px;box-shadow:0 2px 8px #0001;}
+  .aba{border:none;background:#eef5f0;color:var(--escuro);border-radius:12px;padding:9px 14px;font-size:.95em;font-weight:bold;cursor:pointer;transition:.15s;}
+  .aba:hover{background:#dcefe4;}
+  .aba.ativa{background:var(--azul);color:#fff;}
+
+  .wrap{max-width:900px;margin:0 auto;padding:18px 14px 70px;}
+  .pagina{display:none;}
+  .pagina.ativa{display:block;animation:aparece .25s ease;}
+  @keyframes aparece{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+
+  .secao{background:#fff;border-radius:18px;padding:20px;margin:16px 0;box-shadow:0 4px 12px #0001;}
+  .secao h2{color:var(--roxo);margin-bottom:10px;font-size:1.25em;}
+  .secao h3{color:var(--azul);margin:14px 0 6px;}
+  .cai{background:#fff8ee;border-left:6px solid var(--dourado);border-radius:0 12px 12px 0;padding:11px 14px;margin:9px 0;}
+  .cai b{color:var(--dourado);}
+  .tinta{color:var(--cinza);}
+
+  /* trilha */
+  .trilha{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:8px;}
+  .cartao{cursor:pointer;background:#fff;border-radius:16px;padding:16px;box-shadow:0 3px 10px #0002;border-top:6px solid var(--azul);transition:.2s;}
+  .cartao:hover{transform:translateY(-4px);box-shadow:0 8px 18px #0002;}
+  .cartao .passo{font-size:.78em;font-weight:bold;color:#8a93a8;letter-spacing:1px;}
+  .cartao .emoji{font-size:2em;}
+  .cartao h3{margin:5px 0;color:var(--escuro);}
+  .cartao p{font-size:.9em;color:#556;}
+  .c1{border-top-color:var(--azul);}.c2{border-top-color:var(--coral);}
+  .c3{border-top-color:var(--nilo);}.c4{border-top-color:var(--dourado);}
+  ol.comousar{margin-left:20px;line-height:1.9;}
+
+  /* leitura */
+  .bloco{border:2px solid #e2eee7;border-radius:16px;padding:16px;margin:14px 0;transition:.2s;}
+  .bloco.travado{opacity:.5;filter:grayscale(.4);pointer-events:none;}
+  .bloco .cabec{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+  .bloco .cabec .em{font-size:1.8em;}
+  .bloco .cabec h3{margin:0;color:var(--escuro);}
+  .leituraTexto p{margin:8px 0;}
+  .conceitos{background:#eef7f1;border-left:6px solid var(--nilo);border-radius:0 12px 12px 0;padding:10px 14px;margin:10px 0;}
+  .conceitos b{color:var(--nilo);}
+  .conceitos ul{margin:4px 0 0 18px;}
+  .pergunta{background:#f6faf7;border-radius:12px;padding:12px;margin:10px 0;border:1px solid #e2eee7;}
+  .pergunta .enun{font-weight:bold;margin-bottom:4px;}
+  .btn{border:none;border-radius:12px;padding:10px 18px;font-size:1em;font-weight:bold;cursor:pointer;}
+  .btn.principal{background:var(--azul);color:#fff;}
+  .btn.principal:hover{background:#155fbf;}
+  .statusBloco{margin-top:8px;font-weight:bold;}
+
+  /* quiz e simulado */
+  .questao{background:#f6faf7;border-radius:12px;padding:14px;margin:12px 0;border:1px solid #e2eee7;}
+  .questao .num{font-weight:bold;color:var(--roxo);}
+  .questao .enun{font-weight:bold;margin:4px 0 8px;}
+  .alt{display:block;background:#fff;border:1px solid #cdddd3;border-radius:10px;padding:10px;margin:6px 0;cursor:pointer;transition:.12s;}
+  .alt:hover{background:#eef7f1;}
+  .alt.sel{border-color:var(--azul);background:#e6f0ff;}
+  .alt.certa{border-color:var(--verde-ok);background:#e4f6ec;}
+  .alt.errada{border-color:var(--coral);background:#ffe6e6;}
+  .coment{display:none;margin-top:8px;background:#eef4fa;border-radius:10px;padding:10px;font-size:.93em;}
+  .coment.mostra{display:block;}
+  .coment.ok{background:#e4f6ec;}
+  .coment.no{background:#fff0f0;}
+  .placar{background:linear-gradient(120deg,var(--azul),var(--roxo));color:#fff;border-radius:16px;padding:18px;text-align:center;margin:14px 0;display:none;}
+  .placar.mostra{display:block;}
+  .placar .cod{font-size:1.4em;font-weight:bold;letter-spacing:2px;background:#ffffff22;border-radius:12px;padding:8px;margin-top:8px;display:inline-block;}
+
+  /* tabela */
+  table{width:100%;border-collapse:collapse;margin:10px 0;}
+  th,td{border:1px solid #d7e5dd;padding:8px;text-align:left;font-size:.94em;}
+  th{background:#eef5f0;color:var(--roxo);}
+
+  /* etapas do ciclo */
+  .tl{list-style:none;border-left:4px solid var(--azul);margin-left:10px;padding-left:16px;}
+  .tl li{margin:10px 0;position:relative;}
+  .tl li::before{content:'';position:absolute;left:-22px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--azul);}
+  .tl b{color:var(--azul);}
+
+  /* pais */
+  .relPais{background:#123b2c;color:#fff;border-radius:18px;padding:22px;margin:16px 0;}
+  .relPais h2{color:#fff;}
+  .relPais p{opacity:.95;}
+  .lock{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:14px 0;}
+  .lock input{border:none;border-radius:10px;padding:11px 14px;font-size:1em;flex:1;min-width:170px;}
+  .lock button{background:var(--amarelo);color:#3a2b00;border:none;border-radius:10px;padding:11px 20px;font-weight:bold;cursor:pointer;}
+  .painelRel{display:none;margin-top:14px;}
+  .painelRel.mostra{display:block;}
+  .cardRel{background:#ffffff14;border:1px solid #ffffff30;border-radius:14px;padding:14px;margin:10px 0;}
+  .cardRel h3{margin-bottom:8px;color:#fff;}
+  .linhaRel{display:flex;justify-content:space-between;gap:10px;padding:5px 0;border-bottom:1px dashed #ffffff30;font-size:.95em;}
+  .linhaRel:last-child{border-bottom:none;}
+
+  /* salvamento */
+  .barraSalvar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;background:#fff;border-radius:14px;padding:10px;margin:14px 0;box-shadow:0 3px 10px #0001;}
+  .barraSalvar .info{font-size:.85em;color:var(--cinza);flex:1;min-width:160px;}
+  .barraSalvar button{border:1px solid #cdddd3;background:#f6faf7;border-radius:10px;padding:8px 12px;cursor:pointer;font-weight:bold;font-size:.9em;}
+
+  /* modal */
+  .modalFundo{display:none;position:fixed;inset:0;background:#0007;z-index:50;align-items:center;justify-content:center;padding:16px;}
+  .modalFundo.mostra{display:flex;}
+  .modal{background:#fff;border-radius:16px;padding:22px;max-width:420px;width:100%;box-shadow:0 10px 30px #0004;}
+  .modal h3{color:var(--roxo);margin-bottom:8px;}
+  .modal .acoes{display:flex;gap:8px;justify-content:flex-end;margin-top:16px;}
+  .modal textarea{width:100%;min-height:90px;border:1px solid #cdddd3;border-radius:10px;padding:8px;font-family:inherit;}
+  .rodape{text-align:center;padding:18px;color:#6a7690;font-size:.9em;}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="icone">💧🌱🍎</div>
+  <h1>Trilha da Natureza — Ciências 5º Ano</h1>
+  <p>Avaliação • 3º Trimestre • Colégio Coração Feliz • Livro 2</p>
+  <div class="dataProva">📅 Prova: quarta-feira, 30/09</div>
+</div>
+
+<div class="abas" id="abas">
+  <button class="aba ativa" data-p="inicio">🏠 Início</button>
+  <button class="aba" data-p="leitura">📖 Leitura Guiada</button>
+  <button class="aba" data-p="quiz">🎯 Quiz</button>
+  <button class="aba" data-p="resumo">🗺️ Resumo</button>
+  <button class="aba" data-p="simulado">📝 Simulado</button>
+  <button class="aba" data-p="pais">📊 Pais</button>
+</div>
+
+<div class="wrap">
+
+  <!-- ================= INÍCIO ================= -->
+  <div class="pagina ativa" id="pg-inicio">
+    <div class="secao">
+      <h2>📋 O que vai cair na prova</h2>
+      <div class="cai"><b>Unidade 7 — O ciclo da água:</b> os estados físicos da água; as mudanças de estado (fusão, solidificação, vaporização e condensação); as etapas do ciclo da água; e a importância da água para o clima, a agricultura, a energia e as mudanças climáticas.</div>
+      <div class="cai"><b>Unidade 8 — Alimentos:</b> os nutrientes (carboidratos, lipídeos, proteínas, vitaminas e sais minerais); a energia dos alimentos; a conservação e os tipos de alimento; a alimentação saudável e os distúrbios nutricionais.</div>
+    </div>
+    <div class="secao">
+      <h2>🥾 Trilha de estudo (siga a ordem!)</h2>
+      <p class="tinta" style="margin-bottom:6px;">📖 Leitura → 🎯 Quiz → 🗺️ Resumo → 📝 Simulado. Estude aos poucos, no seu ritmo. 💪</p>
+      <div class="trilha">
+        <div class="cartao c1" data-ir="leitura"><div class="passo">PASSO 1</div><div class="emoji">📖</div><h3>Leitura Guiada</h3><p>Caminhe pelas 7 paradas da trilha e clique na resposta certa de cada pergunta. Cada parada abre a próxima.</p></div>
+        <div class="cartao c2" data-ir="quiz"><div class="passo">PASSO 2</div><div class="emoji">🎯</div><h3>Quiz</h3><p>12 perguntas rápidas para testar o que entendeu. Ganha um código MED.</p></div>
+        <div class="cartao c3" data-ir="resumo"><div class="passo">PASSO 3</div><div class="emoji">🗺️</div><h3>Resumo</h3><p>As etapas do ciclo da água e o "resumão" da prova para fechar as lacunas.</p></div>
+        <div class="cartao c4" data-ir="simulado"><div class="passo">PASSO 4</div><div class="emoji">📝</div><h3>Simulado</h3><p>25 questões valendo, com gabarito comentado. Ganha um código SIM.</p></div>
+      </div>
+    </div>
+    <div class="secao">
+      <h2>📝 Como usar esta trilha</h2>
+      <ol class="comousar">
+        <li>Faça a <b>Leitura Guiada</b>: leia cada parada e <b>clique na resposta certa</b> de cada pergunta.</li>
+        <li>Teste-se no <b>Quiz</b> enquanto o assunto está fresco.</li>
+        <li>Use o <b>Resumo</b> para reforçar o que o Quiz mostrou que faltou.</li>
+        <li>Enfrente o <b>Simulado</b> e confira o gabarito comentado.</li>
+      </ol>
+      <p class="tinta" style="margin-top:8px;">Tudo o que você responder fica salvo neste computador. 😊</p>
+    </div>
+  </div>
+
+  <!-- ================= LEITURA ================= -->
+  <div class="pagina" id="pg-leitura">
+    <div class="secao">
+      <h2>📖 Leitura Guiada — 7 paradas na trilha</h2>
+      <p class="tinta">Leia cada parada, depois responda as 3 perguntas <b>clicando</b> na resposta certa. Clique em <b>Conferir parada</b> para ver se acertou e liberar a próxima. 🥾</p>
+    </div>
+    <div id="blocosLeitura"></div>
+    <div class="secao">
+      <h2>⚠️ 10 pegadinhas para não cair na prova</h2>
+      <ol id="pegadinhas" style="margin-left:20px;line-height:1.9;"></ol>
+    </div>
+    <div class="secao">
+      <h2>✅ Cobertura — cada tópico está em qual parada</h2>
+      <table id="tabCobertura"><thead><tr><th>Tópico da prova</th><th>Onde estudar</th></tr></thead><tbody></tbody></table>
+    </div>
+    <div class="secao" id="revisarBox">
+      <h2>🔁 Respostas para revisar</h2>
+      <div id="listaRevisar"><p class="tinta">Nada para revisar por enquanto. Continue assim! 🌟</p></div>
+    </div>
+  </div>
+
+  <!-- ================= QUIZ ================= -->
+  <div class="pagina" id="pg-quiz">
+    <div class="secao">
+      <h2>🎯 Quiz — 12 perguntas</h2>
+      <p class="tinta">Escolha uma resposta em cada pergunta e clique em <b>Ver resultado</b>. As explicações aparecem no fim de cada questão.</p>
+    </div>
+    <div id="quizLista"></div>
+    <div style="text-align:center;"><button class="btn principal" id="btnQuiz">Ver resultado do Quiz ✅</button></div>
+    <div class="placar" id="placarQuiz"></div>
+  </div>
+
+  <!-- ================= RESUMO ================= -->
+  <div class="pagina" id="pg-resumo">
+    <div class="secao">
+      <h2>🗺️ Resumão da prova</h2>
+      <h3>💧 As etapas do ciclo da água (na ordem!)</h3>
+      <ul class="tl">
+        <li><b>Evaporação</b> — a água dos oceanos, mares, rios e do solo é aquecida pelo Sol e vira <b>vapor de água</b> (líquido → gasoso).</li>
+        <li><b>Transpiração</b> — as plantas absorvem água do solo e devolvem parte dela ao ar. Evaporação + transpiração = <b>evapotranspiração</b>.</li>
+        <li><b>Condensação</b> — o vapor sobe, encontra camadas frias da atmosfera e se condensa, formando as <b>nuvens</b> (gasoso → líquido).</li>
+        <li><b>Precipitação</b> — quando as nuvens ficam muito carregadas, a água cai como <b>chuva, neve ou granizo</b>.</li>
+        <li><b>Infiltração</b> — parte da água entra no solo e forma os <b>reservatórios subterrâneos</b>.</li>
+        <li><b>Escoamento</b> — outra parte escoa pela superfície e volta aos <b>rios e oceanos</b>, recomeçando o ciclo.</li>
+      </ul>
+      <div class="cai">A quantidade total de água na natureza <b>não muda</b> — ela só passa de um estado físico para outro, de forma cíclica.</div>
+    </div>
+    <div class="secao">
+      <h3>💧 Unidade 7 — A água</h3>
+      <table>
+        <thead><tr><th>Assunto</th><th>Para lembrar</th></tr></thead>
+        <tbody>
+          <tr><td>Estados físicos</td><td><b>Líquido</b> (oceanos, rios, lagos, nuvens, corpo dos seres vivos); <b>gasoso</b> (vapor de água no ar, invisível); <b>sólido</b> (neve, granizo, geleiras, icebergs, banquisas).</td></tr>
+          <tr><td>Mudanças de estado</td><td><b>Solidificação</b>: líquido → sólido (resfriando, forma gelo). <b>Fusão</b>: sólido → líquido (aquecendo, derrete). <b>Vaporização</b>: líquido → gasoso (evaporação = lenta; ebulição = rápida, com bolhas). <b>Condensação</b> (ou liquefação): gasoso → líquido (ex.: orvalho).</td></tr>
+          <tr><td>Importância — clima</td><td>O ciclo da água regula a <b>umidade</b> e as <b>chuvas</b>. O <b>desmatamento</b> reduz a transpiração das plantas e diminui as chuvas. Os "rios voadores" levam vapor de água pela atmosfera.</td></tr>
+          <tr><td>Importância — usos</td><td><b>Abastecimento</b> (reservatórios e barragens), <b>agricultura</b> (irrigação consome muita água doce) e <b>energia</b> (usinas hidrelétricas: a água move as turbinas ligadas a um gerador).</td></tr>
+          <tr><td>Mudanças climáticas</td><td>Causadas pela intensificação do <b>efeito estufa</b> (gases como CO₂ e metano) → <b>aquecimento global</b> → mais evaporação, derretimento de geleiras, secas e tempestades.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="secao">
+      <h3>🍎 Unidade 8 — Os alimentos</h3>
+      <table>
+        <thead><tr><th>Nutriente</th><th>Função e exemplos</th></tr></thead>
+        <tbody>
+          <tr><td>Carboidratos</td><td>Fornecem <b>energia</b> para o dia a dia. Ex.: frutas, pães, arroz, batata, mandioca, macarrão, mel, açúcares. (4 kcal por grama)</td></tr>
+          <tr><td>Lipídeos</td><td><b>Reserva de energia</b>, ajudam na temperatura do corpo e na formação de estruturas. Ex.: óleos, azeites, abacate, castanhas, manteiga. (9 kcal por grama)</td></tr>
+          <tr><td>Proteínas</td><td><b>Construção</b> do corpo, crescimento e novas estruturas. Ex.: carnes, leite, ovos, feijão, soja, peixe, queijos. (4 kcal por grama)</td></tr>
+          <tr><td>Vitaminas</td><td><b>Regulam</b> as funções do corpo. Ex.: vitaminas A, C e D, em frutas, hortaliças, carnes e ovos.</td></tr>
+          <tr><td>Sais minerais</td><td>Reguladores. <b>Sódio</b> (sal) e <b>potássio</b> (banana) regulam a água do corpo; <b>ferro</b> (carnes, feijão) previne a anemia; <b>cálcio</b> e <b>fósforo</b> (derivados do leite) formam ossos e dentes.</td></tr>
+        </tbody>
+      </table>
+      <table>
+        <thead><tr><th>Assunto</th><th>Para lembrar</th></tr></thead>
+        <tbody>
+          <tr><td>Conservação</td><td>Pelo <b>calor</b> (pasteurização e ultrapasteurização do leite), pelo <b>frio</b> (refrigeração 0 °C a 8 °C; congelamento abaixo de 0 °C), por <b>desidratação/salga</b> (retira a água) e por <b>aditivos</b> (conservantes).</td></tr>
+          <tr><td>Tipos de alimento</td><td><b>In natura e minimamente processados</b> = base da alimentação; <b>processados</b> = com moderação; <b>ultraprocessados</b> = evitar (têm substâncias químicas artificiais e muitas calorias).</td></tr>
+          <tr><td>Distúrbios nutricionais</td><td><b>Obesidade</b>: acúmulo excessivo de gordura (excesso de calorias + sedentarismo). <b>Desnutrição</b>: falta de calorias/nutrientes — pode ocorrer até em quem é obeso, se comer alimentos pobres em nutrientes.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="secao">
+      <h2>💛 Dicas de prova (cole na memória)</h2>
+      <div class="cai">A quantidade de água na natureza <b>não muda</b> — ela só troca de estado físico.</div>
+      <div class="cai">A <b>nuvem</b> é água <b>líquida</b> (gotículas); o <b>vapor de água</b> é o estado <b>gasoso</b> (invisível).</div>
+      <div class="cai"><b>Condensação</b> = vapor vira líquido (o orvalho!). <b>Solidificação</b> = líquido vira gelo.</div>
+      <div class="cai"><b>Carboidrato</b> = energia; <b>proteína</b> = construção; <b>lipídeo</b> = reserva (e tem mais calorias: 9 kcal/g).</div>
+    </div>
+  </div>
+
+  <!-- ================= SIMULADO ================= -->
+  <div class="pagina" id="pg-simulado">
+    <div class="secao">
+      <h2>📝 Simulado — 25 questões</h2>
+      <p class="tinta">Responda com calma. Ao clicar em <b>Corrigir simulado</b>, você vê a nota, o gabarito comentado e ganha um código <b>SIM</b> para mostrar aos pais.</p>
+    </div>
+    <div id="simuladoLista"></div>
+    <div style="text-align:center;"><button class="btn principal" id="btnSim">Corrigir simulado ✅</button></div>
+    <div class="placar" id="placarSim"></div>
+  </div>
+
+  <!-- ================= PAIS ================= -->
+  <div class="pagina" id="pg-pais">
+    <div class="relPais">
+      <h2>📊 Relatório para os pais</h2>
+      <p>Digite o código para ver o progresso do jovem aprendiz. Use o código fixo da família <b>PAIS-77</b>, ou os códigos <b>MED-…</b> (Quiz) e <b>SIM-…</b> (Simulado) que aparecem no fim de cada atividade.</p>
+      <div class="lock">
+        <input type="text" id="codigoInput" placeholder="Ex.: PAIS-77">
+        <button id="btnAbrirRel">🔓 Abrir relatório</button>
+      </div>
+      <div class="painelRel" id="painelRel"></div>
+    </div>
+  </div>
+
+  <!-- barra de salvamento -->
+  <div class="barraSalvar">
+    <span class="info" id="infoSalvar">Progresso salvo automaticamente neste computador.</span>
+    <button id="btnExportar">📥 Exportar</button>
+    <button id="btnImportar">📤 Importar</button>
+    <button id="btnZerar">🗑️ Zerar tudo</button>
+  </div>
+
+</div>
+
+<div class="rodape">Kit feito com carinho para o jovem aprendiz. Boa trilha pela natureza! 🌿</div>
+
+<!-- modal -->
+<div class="modalFundo" id="modalFundo">
+  <div class="modal">
+    <h3 id="modalTitulo"></h3>
+    <div id="modalCorpo"></div>
+    <div class="acoes" id="modalAcoes"></div>
+  </div>
+</div>
+
+<script>
+"use strict";
+
+/* ---------- armazenamento seguro ---------- */
+var CHAVE='cie5_un78';
+var memoriaReserva={};
+function salvarTudo(){
+  try{ localStorage.setItem(CHAVE, JSON.stringify(STATE)); }
+  catch(e){ memoriaReserva[CHAVE]=JSON.stringify(STATE); }
+  var el=document.getElementById('infoSalvar');
+  if(el){ el.textContent='Salvo ✓ '+new Date().toLocaleString('pt-BR'); }
+}
+function carregarTudo(){
+  var txt=null;
+  try{ txt=localStorage.getItem(CHAVE); }catch(e){ txt=memoriaReserva[CHAVE]||null; }
+  if(txt){ try{ return JSON.parse(txt); }catch(e){ return null; } }
+  return null;
+}
+
+var STATE = carregarTudo() || { leitura:{}, quiz:{sel:{},feito:false}, simulado:{sel:{},feito:false}, codigos:{} };
+if(!STATE.leitura) STATE.leitura={};
+if(!STATE.quiz) STATE.quiz={sel:{},feito:false};
+if(!STATE.simulado) STATE.simulado={sel:{},feito:false};
+if(!STATE.codigos) STATE.codigos={};
+
+/* ---------- utilidades ---------- */
+function mulberry32(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+function embaralhar(arr,seed){var r=mulberry32(seed);var a=arr.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(r()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+
+/* ---------- DADOS: LEITURA ---------- */
+var LEITURA=[
+ {id:'b1',emoji:'💧',titulo:'Parada 1 — A água na natureza (os estados físicos)',
+  html:'<p>Grande parte da superfície da Terra é coberta por <b>água</b>, que pode aparecer em três <b>estados físicos</b>: líquido, gasoso e sólido.</p>'+
+       '<p>No estado <b>líquido</b>, a água está nos oceanos, mares, rios, lagos, lençóis freáticos e aquíferos. Também está nas <b>nuvens</b> (formadas por pequenas gotículas de água) e no corpo de todos os seres vivos.</p>'+
+       '<p>No estado <b>gasoso</b>, a água está no ar que respiramos, na forma de <b>vapor de água</b>. Esse vapor é <b>invisível</b>, como os outros gases do ar.</p>'+
+       '<p>No estado <b>sólido</b>, a água aparece como <b>neve</b> (cristais de gelo do congelamento do vapor), <b>granizo</b> (pedaços de gelo formados nas nuvens), <b>geleiras</b> (acúmulo de neve compactada), <b>icebergs</b> (pedaços que se desprendem das geleiras) e <b>banquisas</b> (água do mar congelada).</p>',
+  conceitos:['3 estados da água: líquido, gasoso e sólido.','Nuvem = água líquida (gotículas). Vapor = água gasosa (invisível).','Sólido: neve, granizo, geleiras, icebergs e banquisas.'],
+  perguntas:[
+    {q:'Em qual estado físico está a água que forma as nuvens?',o:[
+       {t:'Líquido, pois as nuvens são feitas de pequenas gotículas de água',c:true},
+       {t:'Gasoso, pois a nuvem é feita de vapor de água',c:false},
+       {t:'Sólido, pois a nuvem é feita de gelo',c:false},
+       {t:'A nuvem não tem água',c:false}],
+     e:'As nuvens são formadas por pequenas gotículas de água — ou seja, água no estado líquido. O vapor de água (gasoso) é invisível.'},
+    {q:'A neve, o granizo, as geleiras e os icebergs são exemplos de água em qual estado?',o:[
+       {t:'Sólido',c:true},
+       {t:'Líquido',c:false},
+       {t:'Gasoso',c:false},
+       {t:'Nenhum, pois não são feitos de água',c:false}],
+     e:'Todos são formas de água no estado sólido (gelo). As banquisas, por exemplo, são água do mar congelada.'},
+    {q:'O vapor de água presente no ar que respiramos é...',o:[
+       {t:'invisível, e está no estado gasoso',c:true},
+       {t:'visível, e está no estado líquido',c:false},
+       {t:'visível, e está no estado sólido',c:false},
+       {t:'colorido, e está no estado líquido',c:false}],
+     e:'O vapor de água está no estado gasoso e é invisível, assim como os outros gases que compõem o ar.'}
+  ]},
+
+ {id:'b2',emoji:'🔄',titulo:'Parada 2 — As mudanças de estado da água',
+  html:'<p>A água muda de estado físico quando é <b>aquecida</b> ou <b>resfriada</b>. Cada mudança tem um nome:</p>'+
+       '<p><b>Solidificação:</b> a água líquida é resfriada e vira <b>sólida</b> (forma o gelo).</p>'+
+       '<p><b>Fusão:</b> o gelo (sólido) é aquecido e passa para o estado <b>líquido</b> (derrete).</p>'+
+       '<p><b>Vaporização:</b> a água líquida passa para o estado <b>gasoso</b>. Na <b>evaporação</b> isso ocorre de forma <b>lenta</b>; na <b>ebulição</b>, de forma <b>rápida</b>, com aquecimento e formação de bolhas.</p>'+
+       '<p><b>Condensação</b> (também chamada de liquefação): o vapor de água é <b>resfriado</b> e passa do estado gasoso para o <b>líquido</b>. É o que acontece na formação do <b>orvalho</b>, quando o vapor toca uma superfície fria, como a grama.</p>',
+  conceitos:['Solidificação: líquido → sólido (resfria). Fusão: sólido → líquido (aquece).','Vaporização: líquido → gasoso. Evaporação é lenta; ebulição é rápida (com bolhas).','Condensação: gasoso → líquido (resfria). Ex.: o orvalho.'],
+  perguntas:[
+    {q:'Quando a água líquida é resfriada e se transforma em gelo, ocorre a...',o:[
+       {t:'solidificação',c:true},
+       {t:'fusão',c:false},
+       {t:'evaporação',c:false},
+       {t:'condensação',c:false}],
+     e:'A solidificação é a passagem do líquido para o sólido, causada pelo resfriamento (forma o gelo).'},
+    {q:'O orvalho que aparece na grama pela manhã se forma por qual mudança de estado?',o:[
+       {t:'Condensação: o vapor de água esfria ao tocar a grama e vira líquido',c:true},
+       {t:'Fusão: o gelo da grama derrete',c:false},
+       {t:'Solidificação: a água da grama congela',c:false},
+       {t:'Evaporação: a água da grama vira vapor',c:false}],
+     e:'Na formação do orvalho, o vapor de água do ar toca uma superfície fria (a grama), esfria e vira líquido — isso é condensação (com redução da temperatura).'},
+    {q:'Qual é a diferença entre a evaporação e a ebulição?',o:[
+       {t:'A evaporação é lenta; a ebulição é rápida, com aquecimento e formação de bolhas',c:true},
+       {t:'A evaporação é rápida; a ebulição é lenta',c:false},
+       {t:'As duas transformam a água em gelo',c:false},
+       {t:'Não existe diferença nenhuma',c:false}],
+     e:'As duas são vaporização (líquido → gasoso). A evaporação acontece de forma lenta; a ebulição é rápida, com aquecimento e bolhas no líquido.'}
+  ]},
+
+ {id:'b3',emoji:'🌧️',titulo:'Parada 3 — O ciclo da água',
+  html:'<p>A quantidade de água na natureza <b>não varia</b>, mas ela passa constantemente por mudanças de estado. Essas mudanças formam o <b>ciclo da água</b> (também chamado de <b>ciclo hidrológico</b>).</p>'+
+       '<p><b>Evaporação:</b> a água dos oceanos, mares, rios e do solo é aquecida pelo Sol e vira vapor.</p>'+
+       '<p><b>Transpiração:</b> as plantas absorvem água do solo e devolvem parte dela ao ar. A evaporação somada à transpiração é chamada de <b>evapotranspiração</b>.</p>'+
+       '<p><b>Condensação:</b> o vapor sobe, encontra as camadas frias da atmosfera e se condensa, formando as <b>nuvens</b>.</p>'+
+       '<p><b>Precipitação:</b> quando as nuvens ficam muito carregadas, a água cai na forma de <b>chuva, neve ou granizo</b>.</p>'+
+       '<p><b>Infiltração:</b> parte da água entra no solo e forma os reservatórios subterrâneos. Outra parte <b>escoa</b> pela superfície e volta aos rios e oceanos, recomeçando o ciclo.</p>',
+  conceitos:['Ciclo da água = ciclo hidrológico. A quantidade de água não muda.','Etapas: evaporação, transpiração, condensação, precipitação, infiltração e escoamento.','Evapotranspiração = evaporação do ambiente + transpiração das plantas.'],
+  perguntas:[
+    {q:'O que é evapotranspiração?',o:[
+       {t:'A combinação da evaporação da água do ambiente com a transpiração dos seres vivos, principalmente as plantas',c:true},
+       {t:'Só a evaporação da água dos oceanos',c:false},
+       {t:'Só a formação das nuvens na atmosfera',c:false},
+       {t:'A transpiração apenas dos animais das florestas',c:false}],
+     e:'Evapotranspiração é a evaporação da água do ambiente somada à transpiração dos seres vivos, principalmente das plantas. Juntas, elas lançam muito vapor de água na atmosfera.'},
+    {q:'Como se formam as nuvens no ciclo da água?',o:[
+       {t:'O vapor de água sobe, encontra camadas frias da atmosfera e se condensa',c:true},
+       {t:'A chuva sobe de volta para o céu já pronta',c:false},
+       {t:'O gelo dos rios evapora e vira nuvem sólida',c:false},
+       {t:'As nuvens nascem dentro do solo',c:false}],
+     e:'O vapor de água sobe para a atmosfera, encontra camadas mais frias e se condensa, formando as nuvens (condensação).'},
+    {q:'Sobre a quantidade de água na natureza durante o ciclo, é correto dizer que ela...',o:[
+       {t:'não varia — a água apenas muda de estado físico o tempo todo',c:true},
+       {t:'aumenta um pouco a cada chuva',c:false},
+       {t:'diminui a cada evaporação',c:false},
+       {t:'desaparece quando vira vapor',c:false}],
+     e:'A quantidade total de água na natureza não muda. Ela só passa de um estado físico para outro, de forma cíclica.'}
+  ]},
+
+ {id:'b4',emoji:'🌍',titulo:'Parada 4 — A importância da água',
+  html:'<p>O ciclo da água tem relação com o <b>clima</b> e com várias atividades humanas.</p>'+
+       '<p><b>Clima:</b> o ciclo regula a umidade do ar e o padrão de chuvas. A <b>vegetação</b> é essencial: quando as plantas transpiram, devolvem água ao ar. Por isso o <b>desmatamento diminui as chuvas</b>. Os "rios voadores" são grandes quantidades de vapor de água que viajam pela atmosfera.</p>'+
+       '<p><b>Abastecimento e agricultura:</b> as pessoas criam reservatórios (barragens) para guardar água. A agricultura usa muita água doce na <b>irrigação</b> das plantações.</p>'+
+       '<p><b>Energia elétrica:</b> nas usinas <b>hidrelétricas</b>, a água represada passa pelas <b>turbinas</b> e as faz girar; as turbinas ligadas a um <b>gerador</b> transformam esse movimento em energia elétrica. Em períodos de seca, a produção de energia pode ser prejudicada.</p>'+
+       '<p><b>Mudanças climáticas:</b> a intensificação do <b>efeito estufa</b> (por gases como o gás carbônico e o metano) causa o <b>aquecimento global</b>, que aumenta a evaporação e o derretimento das geleiras, provocando mais secas e tempestades.</p>',
+  conceitos:['Desmatamento reduz a transpiração das plantas e diminui as chuvas.','Hidrelétrica: a água move as turbinas ligadas a um gerador → energia elétrica.','Mudanças climáticas: efeito estufa intensificado → aquecimento global.'],
+  perguntas:[
+    {q:'Como o desmatamento pode afetar as chuvas de uma região?',o:[
+       {t:'Diminui a transpiração das plantas, reduzindo o volume de chuvas',c:true},
+       {t:'Aumenta as chuvas, porque o solo fica mais quente',c:false},
+       {t:'Não tem nenhuma relação com as chuvas',c:false},
+       {t:'Faz a água dos oceanos secar',c:false}],
+     e:'As plantas devolvem água ao ar pela transpiração. Sem elas, a transpiração diminui e o volume de chuvas cai.'},
+    {q:'Numa usina hidrelétrica, como a energia elétrica é produzida?',o:[
+       {t:'A água move as turbinas, que estão ligadas a um gerador que produz a energia elétrica',c:true},
+       {t:'O calor do sol aquece a água e vira eletricidade',c:false},
+       {t:'A chuva cai diretamente sobre as casas',c:false},
+       {t:'O vento gira as nuvens',c:false}],
+     e:'A água represada passa pelas turbinas e as faz girar; ligadas a um gerador, elas transformam o movimento da água em energia elétrica.'},
+    {q:'As mudanças climáticas são causadas principalmente por qual fenômeno?',o:[
+       {t:'A intensificação do efeito estufa, pelo aumento de gases como o gás carbônico e o metano',c:true},
+       {t:'A diminuição do número de nuvens',c:false},
+       {t:'O excesso de chuvas nos desertos',c:false},
+       {t:'O congelamento dos oceanos',c:false}],
+     e:'O aumento de gases estufa (como gás carbônico e metano) intensifica o efeito estufa e provoca o aquecimento global, que altera o ciclo da água.'}
+  ]},
+
+ {id:'b5',emoji:'🍎',titulo:'Parada 5 — Alimentos e nutrientes',
+  html:'<p>Os <b>nutrientes</b> são substâncias importantes para o corpo e estão nos alimentos. Os principais são: carboidratos, lipídeos, proteínas, vitaminas e sais minerais.</p>'+
+       '<p><b>Carboidratos:</b> fornecem <b>energia</b> para o dia a dia. Ex.: frutas, pães, arroz, batata, mandioca, macarrão, mel e açúcares.</p>'+
+       '<p><b>Lipídeos:</b> servem de <b>reserva de energia</b>, ajudam a manter a temperatura do corpo e formam estruturas. Ex.: óleos, azeites, abacate, amendoim, castanhas e manteiga.</p>'+
+       '<p><b>Proteínas:</b> participam da <b>construção</b> do corpo, do crescimento e da formação de novas estruturas. Ex.: carnes, leite, ovos, feijão, soja, peixe e queijos.</p>'+
+       '<p><b>Vitaminas:</b> <b>regulam</b> as funções do organismo (ex.: vitaminas A, C e D).</p>'+
+       '<p><b>Sais minerais:</b> também são reguladores. O <b>sódio</b> (sal) e o <b>potássio</b> (banana) regulam a água do corpo; o <b>ferro</b> (carnes, feijão) previne a anemia; o <b>cálcio</b> e o <b>fósforo</b> (derivados do leite) formam ossos e dentes.</p>'+
+       '<p>A energia dos alimentos é medida em <b>calorias (cal)</b> ou <b>quilocalorias (kcal)</b>. Carboidratos e proteínas fornecem 4 kcal por grama; os lipídeos fornecem 9 kcal por grama.</p>',
+  conceitos:['Carboidrato = energia; lipídeo = reserva de energia; proteína = construção.','Vitaminas e sais minerais = reguladores das funções do corpo.','Ferro previne a anemia; cálcio e fósforo formam ossos e dentes.'],
+  perguntas:[
+    {q:'Qual nutriente tem como principal função fornecer energia para as atividades do dia a dia?',o:[
+       {t:'Os carboidratos',c:true},
+       {t:'As proteínas',c:false},
+       {t:'As vitaminas',c:false},
+       {t:'Os sais minerais',c:false}],
+     e:'Os carboidratos (frutas, pães, arroz, mandioca, mel...) têm como principal função fornecer energia para o corpo.'},
+    {q:'Ferro, cálcio, sódio e potássio são exemplos de quê?',o:[
+       {t:'Sais minerais',c:true},
+       {t:'Carboidratos',c:false},
+       {t:'Lipídeos',c:false},
+       {t:'Vitaminas',c:false}],
+     e:'São sais minerais, nutrientes reguladores. O ferro previne a anemia; o cálcio e o fósforo formam ossos e dentes.'},
+    {q:'Para que servem, principalmente, as proteínas?',o:[
+       {t:'Para a construção do corpo, o crescimento e a formação de novas estruturas',c:true},
+       {t:'Para fornecer a energia do dia a dia',c:false},
+       {t:'Apenas para dar sabor aos alimentos',c:false},
+       {t:'Para congelar a água do corpo',c:false}],
+     e:'As proteínas (carnes, ovos, leite, feijão, soja...) participam da construção do corpo e do crescimento.'}
+  ]},
+
+ {id:'b6',emoji:'❄️',titulo:'Parada 6 — Conservação e tipos de alimento',
+  html:'<p>Muitos alimentos estragam com facilidade, por isso usamos processos de <b>conservação</b>:</p>'+
+       '<p><b>Pelo calor:</b> o alimento é aquecido para matar microrganismos (ex.: <b>pasteurização</b> e <b>ultrapasteurização</b> do leite).</p>'+
+       '<p><b>Pelo frio:</b> as baixas temperaturas reduzem a ação dos microrganismos. Na <b>refrigeração</b>, a temperatura fica entre 0 °C e 8 °C; no <b>congelamento</b>, abaixo de 0 °C.</p>'+
+       '<p><b>Por desidratação (secagem/salga):</b> retira a água do alimento, o que reduz a ação dos microrganismos.</p>'+
+       '<p><b>Por aditivos:</b> adição de substâncias químicas chamadas <b>conservantes</b>.</p>'+
+       '<p>Os rótulos das embalagens trazem a <b>tabela nutricional</b>, a lista de ingredientes (do que tem mais para o que tem menos) e um <b>selo de advertência</b> quando há excesso de açúcar, sódio ou gorduras.</p>'+
+       '<p>Quanto ao processamento, os alimentos são de três tipos: <b>in natura e minimamente processados</b> (devem ser a base da alimentação), <b>processados</b> (consumir com moderação) e <b>ultraprocessados</b> (evitar — têm substâncias químicas artificiais, como conservantes, corantes e realçadores de sabor).</p>',
+  conceitos:['Conservação: calor (pasteurização), frio (refrigeração/congelamento), desidratação/salga e aditivos.','In natura = base; processados = moderação; ultraprocessados = evitar.','O frio conserva porque reduz a ação dos microrganismos que estragam o alimento.'],
+  perguntas:[
+    {q:'Por que guardar alimentos na geladeira aumenta a durabilidade deles?',o:[
+       {t:'Porque o frio reduz a ação dos microrganismos que estragam os alimentos',c:true},
+       {t:'Porque a geladeira adiciona nutrientes ao alimento',c:false},
+       {t:'Porque o frio aquece o alimento',c:false},
+       {t:'Porque a geladeira tira o sabor do alimento',c:false}],
+     e:'As baixas temperaturas reduzem a ação dos microrganismos que decompõem os alimentos, por isso eles duram mais.'},
+    {q:'Salgadinhos de pacote, refrigerantes e bolachas recheadas são exemplos de alimentos...',o:[
+       {t:'ultraprocessados, que devem ser evitados',c:true},
+       {t:'in natura, que são a base da alimentação',c:false},
+       {t:'minimamente processados',c:false},
+       {t:'sem nenhum tipo de processamento',c:false}],
+     e:'São ultraprocessados: passam por vários processos e recebem substâncias químicas artificiais. Devem ser evitados.'},
+    {q:'Por que a desidratação (secagem ou salga) conserva os alimentos?',o:[
+       {t:'Porque retira a água do alimento, reduzindo a ação dos microrganismos',c:true},
+       {t:'Porque adiciona água ao alimento',c:false},
+       {t:'Porque congela o alimento',c:false},
+       {t:'Porque aquece o alimento a mais de 100 °C',c:false}],
+     e:'A desidratação retira a água do alimento; sem água, os microrganismos que causam a decomposição têm sua atividade reduzida.'}
+  ]},
+
+ {id:'b7',emoji:'🥗',titulo:'Parada 7 — Alimentação saudável e distúrbios',
+  html:'<p>Cada pessoa precisa de uma quantidade diferente de <b>calorias</b> por dia, que varia com o sexo, a idade, o peso e o nível de <b>atividade física</b>. Quem pratica atividade física gasta mais energia.</p>'+
+       '<p>Quando uma pessoa ingere <b>mais calorias do que gasta</b>, aumenta a massa corporal. Quando ingere <b>menos do que gasta</b>, emagrece. Para uma alimentação saudável, a base deve ser de alimentos <b>in natura</b> e minimamente processados, evitando os ultraprocessados.</p>'+
+       '<p>A falta ou o excesso de nutrientes pode causar <b>distúrbios nutricionais</b>:</p>'+
+       '<p><b>Obesidade:</b> acúmulo excessivo de gordura no corpo. Pode ser causada pelo consumo exagerado de alimentos calóricos junto com a falta de atividade física, e aumenta os riscos de problemas no coração e nas articulações.</p>'+
+       '<p><b>Desnutrição:</b> ocorre quando o corpo não recebe (ou não absorve) calorias e nutrientes suficientes. Uma pessoa <b>obesa também pode estar desnutrida</b>, se comer alimentos muito calóricos mas pobres em nutrientes.</p>',
+  conceitos:['Come mais do que gasta = ganha massa; come menos = emagrece.','Obesidade = acúmulo excessivo de gordura (excesso de calorias + sedentarismo).','Desnutrição pode ocorrer até em quem é obeso, se comer poucos nutrientes.'],
+  perguntas:[
+    {q:'O que tende a acontecer quando uma pessoa come mais calorias do que gasta?',o:[
+       {t:'Ela aumenta a massa corporal',c:true},
+       {t:'Ela sempre emagrece',c:false},
+       {t:'Nada muda no corpo dela',c:false},
+       {t:'Ela para de precisar de água',c:false}],
+     e:'Quando se ingere mais calorias do que se gasta, ocorre aumento da massa corporal. Para manter o peso, é preciso equilibrar o que se come com o que se gasta.'},
+    {q:'A obesidade pode ser causada por...',o:[
+       {t:'consumo exagerado de alimentos calóricos junto com a falta de atividade física',c:true},
+       {t:'beber água em excesso',c:false},
+       {t:'comer muitas frutas e verduras',c:false},
+       {t:'dormir demais apenas',c:false}],
+     e:'A obesidade é o acúmulo excessivo de gordura. Uma das causas é o consumo exagerado de alimentos calóricos associado ao sedentarismo (falta de atividade física).'},
+    {q:'É possível uma pessoa obesa também estar desnutrida?',o:[
+       {t:'Sim, se ela comer alimentos muito calóricos, mas pobres em nutrientes',c:true},
+       {t:'Não, quem é obeso nunca fica desnutrido',c:false},
+       {t:'Não, porque desnutrição só existe em quem é muito magro',c:false},
+       {t:'Sim, mas só se ela parar de beber água',c:false}],
+     e:'Sim. A desnutrição ocorre pela falta de nutrientes. Uma pessoa obesa pode estar desnutrida se comer alimentos muito calóricos, porém pobres em nutrientes.'}
+  ]}
+];
+
+var PEGADINHAS=[
+ 'A quantidade total de água na natureza <b>não muda</b> — ela só passa de um estado físico para outro.',
+ 'A <b>nuvem</b> é água no estado <b>líquido</b> (gotículas); o <b>vapor de água</b> é o estado <b>gasoso</b> (invisível). Não troque!',
+ '<b>Evaporação</b> é lenta; <b>ebulição</b> é rápida (com aquecimento e bolhas). As duas são vaporização.',
+ '<b>Condensação</b> = gás vira líquido (o orvalho!); <b>solidificação</b> = líquido vira gelo. Cuidado para não trocar.',
+ '<b>Evapotranspiração</b> = evaporação do ambiente + transpiração das plantas (as duas juntas).',
+ 'O <b>desmatamento diminui as chuvas</b>, porque reduz a transpiração das plantas.',
+ 'Numa <b>hidrelétrica</b>, a água move as <b>turbinas</b> ligadas a um <b>gerador</b> — é assim que se produz a energia.',
+ '<b>Carboidrato</b> = energia; <b>proteína</b> = construção; <b>lipídeo</b> = reserva de energia.',
+ 'Os <b>lipídeos</b> têm 9 kcal/g; carboidratos e proteínas têm 4 kcal/g (o lipídeo tem mais que o dobro).',
+ 'Uma pessoa <b>obesa também pode estar desnutrida</b> (come muita caloria, mas poucos nutrientes).'
+];
+
+var COBERTURA=[
+ ['Os estados físicos da água','📖 Parada 1'],
+ ['As mudanças de estado (fusão, solidificação, vaporização, condensação)','📖 Parada 2'],
+ ['O ciclo da água e suas etapas','📖 Parada 3'],
+ ['A importância da água (clima, energia, mudanças climáticas)','📖 Parada 4'],
+ ['Os nutrientes (carboidratos, lipídeos, proteínas, vitaminas, sais minerais)','📖 Parada 5'],
+ ['A conservação e os tipos de alimento','📖 Parada 6'],
+ ['A alimentação saudável e os distúrbios nutricionais','📖 Parada 7']
+];
+
+/* ---------- DADOS: QUIZ ---------- */
+var QUIZ=[
+ {q:'Em qual estado físico está a água que forma as nuvens?',o:[{t:'Líquido (pequenas gotículas de água)',c:true},{t:'Gasoso (vapor de água)',c:false},{t:'Sólido (cristais de gelo)',c:false},{t:'A nuvem não contém água',c:false}],e:'As nuvens são feitas de pequenas gotículas de água — estado líquido.'},
+ {q:'Neve, granizo, geleiras e icebergs são exemplos de água em qual estado?',o:[{t:'Sólido',c:true},{t:'Líquido',c:false},{t:'Gasoso',c:false},{t:'Nenhum',c:false}],e:'Todas essas formas são água no estado sólido (gelo).'},
+ {q:'Quando a água líquida é resfriada e vira gelo, ocorre a...',o:[{t:'solidificação',c:true},{t:'fusão',c:false},{t:'condensação',c:false},{t:'evaporação',c:false}],e:'Solidificação: líquido → sólido, causada pelo resfriamento.'},
+ {q:'Quando o gelo é aquecido e derrete, ocorre a...',o:[{t:'fusão',c:true},{t:'solidificação',c:false},{t:'ebulição',c:false},{t:'condensação',c:false}],e:'Fusão: sólido → líquido, causada pelo aquecimento.'},
+ {q:'O orvalho na grama pela manhã se forma por...',o:[{t:'condensação (o vapor esfria e vira líquido)',c:true},{t:'fusão',c:false},{t:'solidificação',c:false},{t:'evaporação',c:false}],e:'O vapor de água toca a grama fria, esfria e vira líquido: condensação.'},
+ {q:'A evapotranspiração é...',o:[{t:'a evaporação do ambiente somada à transpiração das plantas',c:true},{t:'apenas a evaporação dos oceanos',c:false},{t:'apenas a formação das nuvens',c:false},{t:'a transpiração só dos animais',c:false}],e:'É a evaporação da água do ambiente combinada com a transpiração dos seres vivos, principalmente as plantas.'},
+ {q:'Quando as nuvens ficam muito carregadas, a água cai como chuva, neve ou granizo. Essa etapa é a...',o:[{t:'precipitação',c:true},{t:'evaporação',c:false},{t:'infiltração',c:false},{t:'condensação',c:false}],e:'Precipitação é a queda da água das nuvens (chuva, neve ou granizo).'},
+ {q:'O desmatamento de uma região tende a...',o:[{t:'reduzir as chuvas, porque diminui a transpiração das plantas',c:true},{t:'aumentar as chuvas',c:false},{t:'não mudar nada',c:false},{t:'secar os oceanos',c:false}],e:'Sem plantas, a transpiração diminui e o volume de chuvas cai.'},
+ {q:'Numa usina hidrelétrica, a água serve para...',o:[{t:'girar as turbinas ligadas a um gerador, produzindo energia elétrica',c:true},{t:'aquecer as casas diretamente',c:false},{t:'formar as nuvens',c:false},{t:'ser bebida pelos animais',c:false}],e:'A água move as turbinas ligadas ao gerador, que produz a energia elétrica.'},
+ {q:'Qual nutriente tem como principal função fornecer energia para o dia a dia?',o:[{t:'os carboidratos',c:true},{t:'as proteínas',c:false},{t:'as vitaminas',c:false},{t:'os sais minerais',c:false}],e:'Os carboidratos fornecem a energia do dia a dia.'},
+ {q:'Salgadinhos, refrigerantes e bolachas recheadas são alimentos que devem ser...',o:[{t:'evitados (são ultraprocessados)',c:true},{t:'a base da alimentação',c:false},{t:'consumidos sem limite',c:false},{t:'os únicos alimentos da refeição',c:false}],e:'São ultraprocessados, que devem ser evitados.'},
+ {q:'Quando uma pessoa come mais calorias do que gasta, ela tende a...',o:[{t:'aumentar a massa corporal',c:true},{t:'emagrecer',c:false},{t:'não mudar de peso',c:false},{t:'ficar desidratada',c:false}],e:'Ingerir mais calorias do que se gasta aumenta a massa corporal.'}
+];
+
+/* ---------- DADOS: SIMULADO ---------- */
+var SIMULADO=[
+ {q:'A maior parte da superfície do planeta Terra é coberta por...',o:[{t:'água',c:true},{t:'gelo',c:false},{t:'areia',c:false},{t:'vegetação',c:false}],e:'Grande parte da superfície da Terra é coberta por água.'},
+ {q:'A água encontrada nos oceanos, rios e lagos está no estado...',o:[{t:'líquido',c:true},{t:'sólido',c:false},{t:'gasoso',c:false},{t:'nenhum',c:false}],e:'Nos oceanos, rios e lagos, a água está no estado líquido.'},
+ {q:'O vapor de água presente no ar está no estado...',o:[{t:'gasoso, e é invisível',c:true},{t:'líquido, e é visível',c:false},{t:'sólido, e é branco',c:false},{t:'líquido, e é colorido',c:false}],e:'O vapor de água é o estado gasoso e é invisível.'},
+ {q:'Entre os nutrientes, o que fornece mais energia por grama (9 kcal/g) é o...',o:[{t:'lipídeo',c:true},{t:'carboidrato',c:false},{t:'sal mineral',c:false},{t:'a vitamina',c:false}],e:'Os lipídeos fornecem 9 kcal/g; carboidratos e proteínas fornecem 4 kcal/g.'},
+ {q:'Os icebergs são...',o:[{t:'enormes pedaços de gelo que se desprendem das geleiras',c:true},{t:'nuvens de vapor de água',c:false},{t:'gotas de orvalho',c:false},{t:'água do mar em estado líquido',c:false}],e:'Icebergs são pedaços de gelo que se desprendem das geleiras (estado sólido).'},
+ {q:'A passagem da água do estado líquido para o sólido, por resfriamento, chama-se...',o:[{t:'solidificação',c:true},{t:'fusão',c:false},{t:'evaporação',c:false},{t:'condensação',c:false}],e:'Solidificação: líquido → sólido (resfriamento).'},
+ {q:'A passagem da água do estado sólido para o líquido, por aquecimento, chama-se...',o:[{t:'fusão',c:true},{t:'solidificação',c:false},{t:'ebulição',c:false},{t:'condensação',c:false}],e:'Fusão: sólido → líquido (aquecimento).'},
+ {q:'Na ebulição, a vaporização acontece de forma...',o:[{t:'rápida, com aquecimento e formação de bolhas',c:true},{t:'lenta, sem bolhas',c:false},{t:'apenas à noite',c:false},{t:'só nos oceanos',c:false}],e:'Na ebulição, a vaporização é rápida, com bolhas; na evaporação, é lenta.'},
+ {q:'A condensação (ou liquefação) ocorre quando...',o:[{t:'o vapor de água é resfriado e passa do estado gasoso para o líquido',c:true},{t:'a água líquida vira gelo',c:false},{t:'o gelo derrete',c:false},{t:'a água ferve rapidamente',c:false}],e:'Condensação: gasoso → líquido, por resfriamento (ex.: orvalho).'},
+ {q:'O ciclo da água também é chamado de...',o:[{t:'ciclo hidrológico',c:true},{t:'ciclo do carbono',c:false},{t:'efeito estufa',c:false},{t:'ciclo das rochas',c:false}],e:'O ciclo da água também é chamado de ciclo hidrológico.'},
+ {q:'A água dos oceanos, quando aquecida pelo Sol, sofre...',o:[{t:'evaporação',c:true},{t:'solidificação',c:false},{t:'infiltração',c:false},{t:'precipitação',c:false}],e:'Aquecida pelo Sol, a água evapora (vira vapor).'},
+ {q:'As plantas devolvem parte da água que absorvem do solo para o ar por meio da...',o:[{t:'transpiração',c:true},{t:'infiltração',c:false},{t:'solidificação',c:false},{t:'precipitação',c:false}],e:'As plantas devolvem água ao ar pela transpiração.'},
+ {q:'Quando a água da chuva entra no solo, ocorre a...',o:[{t:'infiltração',c:true},{t:'evaporação',c:false},{t:'condensação',c:false},{t:'fusão',c:false}],e:'Infiltração: a água entra no solo e forma reservatórios subterrâneos.'},
+ {q:'A quantidade total de água na natureza durante o ciclo...',o:[{t:'não varia — ela só muda de estado físico',c:true},{t:'aumenta a cada chuva',c:false},{t:'diminui a cada evaporação',c:false},{t:'some quando vira vapor',c:false}],e:'A quantidade de água não muda; ela apenas passa de um estado para outro.'},
+ {q:'Uma região onde quase não chove, como um deserto, tem clima...',o:[{t:'seco',c:true},{t:'úmido',c:false},{t:'polar apenas',c:false},{t:'igual ao das florestas tropicais',c:false}],e:'Onde quase não chove, o clima é seco (ex.: desertos). Florestas tropicais têm clima úmido.'},
+ {q:'Nas usinas hidrelétricas, a água em movimento faz girar as...',o:[{t:'turbinas',c:true},{t:'nuvens',c:false},{t:'geleiras',c:false},{t:'raízes das plantas',c:false}],e:'A água faz girar as turbinas da usina.'},
+ {q:'As turbinas de uma hidrelétrica estão ligadas a um gerador, que produz...',o:[{t:'energia elétrica',c:true},{t:'vapor de água',c:false},{t:'chuva',c:false},{t:'alimentos',c:false}],e:'O gerador transforma o movimento da água em energia elétrica.'},
+ {q:'As mudanças climáticas têm como causa principal a intensificação do...',o:[{t:'efeito estufa',c:true},{t:'ciclo da água',c:false},{t:'derretimento dos rios',c:false},{t:'número de nuvens',c:false}],e:'A intensificação do efeito estufa (gases como CO₂ e metano) causa o aquecimento global.'},
+ {q:'O nutriente que fornece energia para as atividades do dia a dia é o...',o:[{t:'carboidrato',c:true},{t:'a proteína',c:false},{t:'a vitamina',c:false},{t:'o sal mineral',c:false}],e:'Os carboidratos fornecem energia para o dia a dia.'},
+ {q:'Carnes, ovos, leite e feijão são alimentos ricos em...',o:[{t:'proteínas',c:true},{t:'carboidratos',c:false},{t:'apenas água',c:false},{t:'apenas vitaminas',c:false}],e:'Carnes, ovos, leite, feijão e soja são ricos em proteínas.'},
+ {q:'O ferro, presente em carnes e no feijão, ajuda a prevenir a...',o:[{t:'anemia',c:true},{t:'obesidade',c:false},{t:'cárie',c:false},{t:'gripe',c:false}],e:'O ferro compõe uma substância do sangue e previne a anemia.'},
+ {q:'O cálcio e o fósforo, encontrados nos derivados do leite, participam da formação de...',o:[{t:'ossos e dentes',c:true},{t:'cabelos apenas',c:false},{t:'nuvens',c:false},{t:'músculos apenas',c:false}],e:'O cálcio e o fósforo participam da composição de ossos e dentes.'},
+ {q:'A pasteurização e a ultrapasteurização, muito usadas no leite, são formas de conservação...',o:[{t:'pelo calor',c:true},{t:'pelo frio',c:false},{t:'por desidratação',c:false},{t:'por congelamento',c:false}],e:'São conservação pelo calor: o leite é aquecido e depois resfriado rapidamente.'},
+ {q:'Salgadinhos de pacote, refrigerantes e bolachas recheadas são alimentos...',o:[{t:'ultraprocessados, que devem ser evitados',c:true},{t:'in natura',c:false},{t:'minimamente processados',c:false},{t:'sem calorias',c:false}],e:'São ultraprocessados: têm substâncias químicas artificiais e devem ser evitados.'},
+ {q:'O acúmulo excessivo de gordura no corpo é chamado de...',o:[{t:'obesidade',c:true},{t:'desnutrição',c:false},{t:'anemia',c:false},{t:'evaporação',c:false}],e:'A obesidade é o acúmulo excessivo de gordura corporal.'}
+];
+
+/* ---------- codigos ---------- */
+function letrasCodigo(seed){var L='ABCDEFGHJKLMNPQRSTUVWXYZ';var r=mulberry32(seed);return L[Math.floor(r()*L.length)]+L[Math.floor(r()*L.length)];}
+function gerarCodigo(prefixo,acertos,seed){var xx=('0'+acertos).slice(-2);return prefixo+'-'+xx+'-'+letrasCodigo(seed);}
+
+/* ================= NAVEGACAO ABAS ================= */
+function irPara(p){
+  var abas=document.querySelectorAll('.aba');
+  abas.forEach(function(a){a.classList.toggle('ativa',a.getAttribute('data-p')===p);});
+  var pgs=document.querySelectorAll('.pagina');
+  pgs.forEach(function(g){g.classList.remove('ativa');});
+  var alvo=document.getElementById('pg-'+p);
+  if(alvo) alvo.classList.add('ativa');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+document.getElementById('abas').addEventListener('click',function(ev){
+  var b=ev.target.closest('.aba'); if(!b) return; irPara(b.getAttribute('data-p'));
+});
+document.querySelectorAll('[data-ir]').forEach(function(c){
+  c.addEventListener('click',function(){irPara(c.getAttribute('data-ir'));});
+});
+
+/* ================= RENDER LEITURA (MÚLTIPLA ESCOLHA) ================= */
+function renderLeitura(){
+  var cont=document.getElementById('blocosLeitura');
+  cont.innerHTML='';
+  LEITURA.forEach(function(bl,bi){
+    if(!STATE.leitura[bl.id]) STATE.leitura[bl.id]={feito:false,sel:{}};
+    var salvo=STATE.leitura[bl.id];
+    if(!salvo.sel) salvo.sel={};
+    var div=document.createElement('div');
+    div.className='bloco';
+    div.id='bloco-'+bl.id;
+    var travado = bi>0 && !(STATE.leitura[LEITURA[bi-1].id] && STATE.leitura[LEITURA[bi-1].id].feito);
+    if(travado) div.classList.add('travado');
+    var conceitosLi=bl.conceitos.map(function(c){return '<li>'+c+'</li>';}).join('');
+    var html='<div class="cabec"><span class="em">'+bl.emoji+'</span><h3>'+bl.titulo+'</h3></div>'+
+      '<div class="leituraTexto">'+bl.html+'</div>'+
+      '<div class="conceitos"><b>🔑 Conceitos e palavras importantes:</b><ul>'+conceitosLi+'</ul></div>';
+    bl.perguntas.forEach(function(pg,pi){
+      html+='<div class="pergunta" id="p-'+bl.id+'-'+pi+'">'+
+        '<div class="enun">'+(pi+1)+') '+pg.q+'</div>';
+      pg.o.forEach(function(al,ai){
+        html+='<label class="alt" data-b="'+bl.id+'" data-p="'+pi+'" data-a="'+ai+'">'+String.fromCharCode(97+ai)+') '+al.t+'</label>';
+      });
+      html+='<div class="coment" id="cl-'+bl.id+'-'+pi+'"></div></div>';
+    });
+    html+='<button class="btn principal" id="conf-'+bl.id+'">✅ Conferir parada</button>'+
+      '<div class="statusBloco" id="st-'+bl.id+'"></div>';
+    div.innerHTML=html;
+    cont.appendChild(div);
+    // restaurar seleções salvas
+    bl.perguntas.forEach(function(pg,pi){
+      var sel=salvo.sel['q'+pi];
+      if(typeof sel==='number'){
+        var lb=div.querySelector('.alt[data-p="'+pi+'"][data-a="'+sel+'"]');
+        if(lb) lb.classList.add('sel');
+      }
+    });
+    // clique nas alternativas (só antes de conferir)
+    div.querySelectorAll('.alt').forEach(function(el){
+      el.addEventListener('click',function(){
+        if(salvo.feito) return;
+        var pi=parseInt(el.getAttribute('data-p'),10), ai=parseInt(el.getAttribute('data-a'),10);
+        salvo.sel['q'+pi]=ai;
+        div.querySelectorAll('.alt[data-p="'+pi+'"]').forEach(function(x){x.classList.remove('sel');});
+        el.classList.add('sel');
+        salvarTudo();
+      });
+    });
+    if(salvo.feito) mostrarCorrecaoLeitura(bl,bi);
+    document.getElementById('conf-'+bl.id).addEventListener('click',function(){conferirBloco(bl,bi);});
+  });
+  atualizarRevisar();
+}
+
+function mostrarCorrecaoLeitura(bl,bi){
+  var salvo=STATE.leitura[bl.id];
+  bl.perguntas.forEach(function(pg,pi){
+    var sel=salvo.sel['q'+pi];
+    var labels=document.querySelectorAll('#p-'+bl.id+'-'+pi+' .alt');
+    labels.forEach(function(lb){
+      var ai=parseInt(lb.getAttribute('data-a'),10);
+      lb.classList.remove('sel');
+      if(pg.o[ai] && pg.o[ai].c) lb.classList.add('certa');
+      else if(sel===ai) lb.classList.add('errada');
+    });
+    var c=document.getElementById('cl-'+bl.id+'-'+pi);
+    var acertou = typeof sel==='number' && pg.o[sel] && pg.o[sel].c;
+    c.className='coment mostra '+(acertou?'ok':'no');
+    var corretaTxt='';
+    pg.o.forEach(function(al,ai){ if(al.c) corretaTxt=String.fromCharCode(97+ai)+') '+al.t; });
+    c.innerHTML=(acertou?'✅ Você acertou! ':'❌ A resposta certa é <b>'+corretaTxt+'</b>. ')+pg.e;
+  });
+  document.getElementById('st-'+bl.id).innerHTML=statusTexto(bl);
+}
+
+function statusTexto(bl){
+  var salvo=STATE.leitura[bl.id]; var acertos=0;
+  bl.perguntas.forEach(function(pg,pi){
+    var sel=salvo.sel['q'+pi];
+    if(typeof sel==='number' && pg.o[sel] && pg.o[sel].c) acertos++;
+  });
+  if(acertos===bl.perguntas.length) return '<span style="color:var(--verde-ok)">✅ Parada concluída! Você acertou as '+acertos+'! Mandou bem! 🌟</span>';
+  return '<span style="color:var(--coral)">✅ Parada concluída. Você acertou '+acertos+' de '+bl.perguntas.length+'. Leia as explicações e a lista do fim. 🔁</span>';
+}
+
+function conferirBloco(bl,bi){
+  var salvo=STATE.leitura[bl.id]; if(!salvo.sel) salvo.sel={};
+  var faltou=false;
+  bl.perguntas.forEach(function(pg,pi){ if(typeof salvo.sel['q'+pi]!=='number') faltou=true; });
+  if(faltou){
+    document.getElementById('st-'+bl.id).innerHTML='<span style="color:var(--coral)">✋ Escolha uma resposta nas 3 perguntas antes de conferir.</span>';
+    return;
+  }
+  salvo.feito=true;
+  salvarTudo();
+  mostrarCorrecaoLeitura(bl,bi);
+  // libera a próxima parada
+  if(bi+1<LEITURA.length){
+    var prox=document.getElementById('bloco-'+LEITURA[bi+1].id);
+    if(prox) prox.classList.remove('travado');
+  }
+  atualizarRevisar();
+}
+
+function atualizarRevisar(){
+  var lista=document.getElementById('listaRevisar');
+  var itens=[];
+  LEITURA.forEach(function(bl){
+    var salvo=STATE.leitura[bl.id]; if(!salvo||!salvo.feito||!salvo.sel) return;
+    bl.perguntas.forEach(function(pg,pi){
+      var sel=salvo.sel['q'+pi];
+      var acertou = typeof sel==='number' && pg.o[sel] && pg.o[sel].c;
+      if(!acertou){
+        itens.push('<div class="cai"><b>'+bl.emoji+' '+bl.titulo.split('—')[0].trim()+'</b> — pergunta '+(pi+1)+' (você errou; releia a explicação na parada)</div>');
+      }
+    });
+  });
+  if(itens.length===0){ lista.innerHTML='<p class="tinta">Nada para revisar por enquanto. Continue assim! 🌟</p>'; }
+  else{ lista.innerHTML=itens.join(''); }
+}
+
+/* pegadinhas e cobertura */
+function renderExtrasLeitura(){
+  document.getElementById('pegadinhas').innerHTML=PEGADINHAS.map(function(p){return '<li>'+p+'</li>';}).join('');
+  var tb=document.querySelector('#tabCobertura tbody');
+  tb.innerHTML=COBERTURA.map(function(c){return '<tr><td>'+c[0]+'</td><td>'+c[1]+'</td></tr>';}).join('');
+}
+
+/* ================= QUIZ / SIMULADO ================= */
+function renderMultipla(dados,lista,prefixo,estado){
+  var cont=document.getElementById(lista);
+  cont.innerHTML='';
+  dados.forEach(function(qq,qi){
+    var alts=embaralhar(qq.o,qi*335+15+prefixo.length*17);
+    qq._alts=alts; // guarda a ordem embaralhada (pelo conteudo, nao pela letra)
+    var div=document.createElement('div');
+    div.className='questao'; div.id=prefixo+'-q-'+qi;
+    var h='<div class="num">Questão '+(qi+1)+'</div><div class="enun">'+qq.q+'</div>';
+    alts.forEach(function(al,ai){
+      var sel = estado.sel && estado.sel[qi]===ai ? ' sel':'';
+      h+='<label class="alt'+sel+'" data-q="'+qi+'" data-a="'+ai+'">'+String.fromCharCode(97+ai)+') '+al.t+'</label>';
+    });
+    h+='<div class="coment" id="'+prefixo+'-c-'+qi+'"></div>';
+    div.innerHTML=h;
+    cont.appendChild(div);
+  });
+  cont.querySelectorAll('.alt').forEach(function(el){
+    el.addEventListener('click',function(){
+      if(estado.feito) return;
+      var qi=parseInt(el.getAttribute('data-q'),10), ai=parseInt(el.getAttribute('data-a'),10);
+      estado.sel[qi]=ai;
+      document.querySelectorAll('#'+lista+' .alt[data-q="'+qi+'"]').forEach(function(x){x.classList.remove('sel');});
+      el.classList.add('sel');
+      salvarTudo();
+    });
+  });
+  if(estado.feito) mostrarCorrecao(dados,lista,prefixo,estado);
+}
+
+function corrigir(dados,lista,prefixo,estado,placarId,codPref){
+  var acertos=0, respondidas=0;
+  dados.forEach(function(qq,qi){
+    var sel=estado.sel[qi];
+    if(typeof sel==='number'){ respondidas++; if(qq._alts[sel] && qq._alts[sel].c) acertos++; }
+  });
+  estado.feito=true; estado.acertos=acertos; estado.total=dados.length;
+  var cod=gerarCodigo(codPref,acertos,acertos*13+dados.length);
+  estado.codigo=cod;
+  STATE.codigos[codPref]=cod;
+  salvarTudo();
+  mostrarCorrecao(dados,lista,prefixo,estado);
+  var pl=document.getElementById(placarId);
+  pl.classList.add('mostra');
+  var pct=Math.round(acertos/dados.length*100);
+  var estrelas = pct>=80?'🌟🌟🌟':pct>=50?'🌟🌟':'🌟';
+  pl.innerHTML='<div style="font-size:1.3em;font-weight:bold;">Você acertou '+acertos+' de '+dados.length+'! '+estrelas+'</div>'+
+    '<div>('+pct+'%)</div>'+
+    '<div class="cod">'+cod+'</div>'+
+    '<div style="margin-top:6px;font-size:.9em;opacity:.9;">Mostre este código para os pais. 😊</div>';
+  pl.scrollIntoView({behavior:'smooth'});
+}
+
+function mostrarCorrecao(dados,lista,prefixo,estado){
+  dados.forEach(function(qq,qi){
+    var sel=estado.sel[qi];
+    var labels=document.querySelectorAll('#'+lista+' .alt[data-q="'+qi+'"]');
+    labels.forEach(function(lb){
+      var ai=parseInt(lb.getAttribute('data-a'),10);
+      lb.classList.remove('sel');
+      if(qq._alts[ai] && qq._alts[ai].c) lb.classList.add('certa');
+      else if(sel===ai) lb.classList.add('errada');
+    });
+    var c=document.getElementById(prefixo+'-c-'+qi);
+    var acertou = typeof sel==='number' && qq._alts[sel] && qq._alts[sel].c;
+    c.className='coment mostra '+(acertou?'ok':'no');
+    var corretaTxt='';
+    qq._alts.forEach(function(al,ai){ if(al.c) corretaTxt=String.fromCharCode(97+ai)+') '+al.t; });
+    c.innerHTML=(acertou?'✅ Você acertou! ':'❌ A resposta certa é <b>'+corretaTxt+'</b>. ')+qq.e;
+  });
+}
+
+document.getElementById('btnQuiz').addEventListener('click',function(){
+  corrigir(QUIZ,'quizLista','quiz',STATE.quiz,'placarQuiz','MED');
+});
+document.getElementById('btnSim').addEventListener('click',function(){
+  corrigir(SIMULADO,'simuladoLista','sim',STATE.simulado,'placarSim','SIM');
+});
+
+/* ================= RELATORIO PAIS ================= */
+document.getElementById('btnAbrirRel').addEventListener('click',function(){
+  var cod=(document.getElementById('codigoInput').value||'').trim().toUpperCase();
+  var ok = cod==='PAIS-77' || /^SIM-\d{2}-[A-HJ-NP-Z]{2}$/.test(cod) || /^MED-\d{2}-[A-HJ-NP-Z]{2}$/.test(cod);
+  var painel=document.getElementById('painelRel'); painel.classList.add('mostra');
+  if(!ok){ painel.innerHTML='<div class="cardRel">❌ Código inválido. Tente <b>PAIS-77</b> ou os códigos MED-… / SIM-… das atividades.</div>'; return; }
+  montarRelatorio();
+});
+function montarRelatorio(){
+  var painel=document.getElementById('painelRel'); painel.classList.add('mostra');
+  // leitura (múltipla escolha)
+  var blocosFeitos=0, acertosLeit=0, totalLeit=0, errosLeit=0;
+  LEITURA.forEach(function(bl){
+    var s=STATE.leitura[bl.id];
+    bl.perguntas.forEach(function(pg,pi){
+      totalLeit++;
+      if(s && s.sel && typeof s.sel['q'+pi]==='number'){
+        if(pg.o[s.sel['q'+pi]] && pg.o[s.sel['q'+pi]].c) acertosLeit++;
+        else if(s.feito) errosLeit++;
+      }
+    });
+    if(s && s.feito) blocosFeitos++;
+  });
+  var h='<div class="cardRel"><h3>📖 Leitura Guiada</h3>'+
+    '<div class="linhaRel"><span>Paradas concluídas</span><span>'+blocosFeitos+' de '+LEITURA.length+'</span></div>'+
+    '<div class="linhaRel"><span>Acertos nas perguntas</span><span>'+acertosLeit+' de '+totalLeit+'</span></div>'+
+    '<div class="linhaRel"><span>Perguntas para revisar (errou)</span><span>'+errosLeit+'</span></div></div>';
+  var q=STATE.quiz;
+  h+='<div class="cardRel"><h3>🎯 Quiz</h3>'+
+    '<div class="linhaRel"><span>Situação</span><span>'+(q.feito?('acertou '+q.acertos+' de '+q.total):'ainda não finalizou')+'</span></div>'+
+    '<div class="linhaRel"><span>Código</span><span>'+(q.codigo||'—')+'</span></div></div>';
+  var s=STATE.simulado;
+  var respS=s.sel?Object.keys(s.sel).length:0;
+  h+='<div class="cardRel"><h3>📝 Simulado</h3>'+
+    '<div class="linhaRel"><span>Questões respondidas</span><span>'+respS+' de '+SIMULADO.length+'</span></div>'+
+    '<div class="linhaRel"><span>Situação</span><span>'+(s.feito?('acertou '+s.acertos+' de '+s.total):'ainda não finalizou')+'</span></div>'+
+    '<div class="linhaRel"><span>Código</span><span>'+(s.codigo||'—')+'</span></div></div>';
+  painel.innerHTML=h;
+}
+
+/* ================= MODAL ================= */
+function abrirModal(titulo,corpoHtml,acoes){
+  document.getElementById('modalTitulo').textContent=titulo;
+  document.getElementById('modalCorpo').innerHTML=corpoHtml;
+  var ac=document.getElementById('modalAcoes'); ac.innerHTML='';
+  acoes.forEach(function(a){
+    var b=document.createElement('button'); b.className='btn '+(a.cls||''); b.textContent=a.txt;
+    b.style.padding='8px 16px'; if(!a.cls){b.style.background='#eef5f0';}
+    b.addEventListener('click',a.fn); ac.appendChild(b);
+  });
+  document.getElementById('modalFundo').classList.add('mostra');
+}
+function fecharModal(){document.getElementById('modalFundo').classList.remove('mostra');}
+
+document.getElementById('btnExportar').addEventListener('click',function(){
+  var txt=JSON.stringify(STATE);
+  abrirModal('📥 Exportar progresso','<p>Copie o texto abaixo e guarde. Para restaurar depois, use o botão Importar.</p><textarea id="expArea" readonly>'+txt.replace(/</g,'&lt;')+'</textarea>',
+    [{txt:'Copiar',cls:'principal',fn:function(){var a=document.getElementById('expArea');a.select();try{document.execCommand('copy');}catch(e){}}},{txt:'Fechar',fn:fecharModal}]);
+});
+document.getElementById('btnImportar').addEventListener('click',function(){
+  abrirModal('📤 Importar progresso','<p>Cole aqui o texto que você exportou:</p><textarea id="impArea" placeholder="Cole aqui..."></textarea>',
+    [{txt:'Importar',cls:'principal',fn:function(){
+      var v=document.getElementById('impArea').value.trim();
+      try{var obj=JSON.parse(v); STATE=obj; if(!STATE.leitura)STATE.leitura={}; if(!STATE.quiz)STATE.quiz={sel:{},feito:false}; if(!STATE.simulado)STATE.simulado={sel:{},feito:false}; if(!STATE.codigos)STATE.codigos={}; salvarTudo(); fecharModal(); iniciar();}
+      catch(e){ document.getElementById('impArea').value='❌ Texto inválido. Tente copiar de novo.'; }
+    }},{txt:'Cancelar',fn:fecharModal}]);
+});
+document.getElementById('btnZerar').addEventListener('click',function(){
+  abrirModal('🗑️ Zerar tudo','<p>Tem certeza? Isso apaga todas as respostas salvas neste computador.</p>',
+    [{txt:'Sim, zerar',cls:'principal',fn:function(){STATE={leitura:{},quiz:{sel:{},feito:false},simulado:{sel:{},feito:false},codigos:{}};salvarTudo();fecharModal();iniciar();}},{txt:'Não',fn:fecharModal}]);
+});
+document.getElementById('modalFundo').addEventListener('click',function(ev){ if(ev.target===this) fecharModal(); });
+
+/* ================= INICIAR ================= */
+function iniciar(){
+  renderLeitura();
+  renderExtrasLeitura();
+  renderMultipla(QUIZ,'quizLista','quiz',STATE.quiz);
+  renderMultipla(SIMULADO,'simuladoLista','sim',STATE.simulado);
+  document.getElementById('placarQuiz').classList.remove('mostra');
+  document.getElementById('placarSim').classList.remove('mostra');
+  if(STATE.quiz.feito){ corrigirVisual(QUIZ,'quiz',STATE.quiz,'placarQuiz'); }
+  if(STATE.simulado.feito){ corrigirVisual(SIMULADO,'sim',STATE.simulado,'placarSim'); }
+}
+function corrigirVisual(dados,prefixo,estado,placarId){
+  var pl=document.getElementById(placarId); pl.classList.add('mostra');
+  var pct=Math.round(estado.acertos/estado.total*100);
+  var estrelas = pct>=80?'🌟🌟🌟':pct>=50?'🌟🌟':'🌟';
+  pl.innerHTML='<div style="font-size:1.3em;font-weight:bold;">Você acertou '+estado.acertos+' de '+estado.total+'! '+estrelas+'</div><div>('+pct+'%)</div><div class="cod">'+(estado.codigo||'')+'</div>';
+}
+iniciar();
+</script>
+</body>
+</html>
